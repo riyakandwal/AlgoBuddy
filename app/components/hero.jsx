@@ -62,9 +62,10 @@ const HeroSection = () => {
             </h1>
 
             {/* animated topic pill */}
-            <div className="flex items-center gap-3 h-10">
+            <div className="flex items-center gap-3 h-12">
               <span
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[14px] font-bold transition-all duration-300"
+                key={topic.label}
+                className="topic-chip relative inline-flex items-center gap-2 px-5 py-2 rounded-full text-[14px] font-bold backdrop-blur-sm transition-colors transition-opacity duration-300 ease-in-out"
                 style={{
                   background: visible ? (isDark ? topic.darkBg : topic.bg) : "transparent",
                   color: visible ? (isDark ? topic.darkColor : topic.color) : "transparent",
@@ -75,9 +76,19 @@ const HeroSection = () => {
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: isDark ? topic.darkColor : topic.color }}
+                  style={{
+                    background: isDark ? topic.darkColor : topic.color,
+                    boxShadow: `0 0 0 6px ${(isDark ? topic.darkColor : topic.color)}22`,
+                  }}
                 />
                 {topic.label}
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 ease-in-out"
+                  style={{
+                    background: "linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%)",
+                    animation: visible ? "pillShine 2.2s linear infinite" : "none",
+                  }}
+                />
               </span>
             </div>
 
@@ -88,7 +99,7 @@ const HeroSection = () => {
                 onClick={handleStart}
                  className="group inline-flex items-center gap-2 h-[52px] min-h-[44px] px-8 rounded-full border-2 border-surface-900 dark:border-white bg-surface-900 dark:bg-white text-white dark:text-surface-900 text-[15px] font-bold hover:bg-white hover:text-surface-900 dark:hover:bg-surface-900 dark:hover:text-white active:scale-95 transition-all duration-200">
                 Start Visualizing
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
@@ -102,9 +113,9 @@ const HeroSection = () => {
 
           {/* ══ RIGHT — DSA visual card ══ */}
           <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-auto">
-            <div className="relative w-full max-w-[460px]">
+            <div className="group relative w-full max-w-[460px] transform-gpu will-change-transform transition-all duration-300 ease-in-out hover:-translate-y-1 hover:scale-[1.02]">
               {/* ── main card: code editor window ── */}
-              <div className="rounded-2xl border border-[#d1d7dc] dark:border-[#3e4143] bg-[#1c1d1f] shadow-2xl overflow-hidden">
+              <div className="rounded-2xl border border-[#d1d7dc] dark:border-[#3e4143] bg-[#1c1d1f] shadow-2xl overflow-hidden transition-all duration-300 ease-in-out group-hover:border-[#c084fc] group-hover:bg-[#202124] group-hover:shadow-2xl group-hover:shadow-purple-200/40 dark:group-hover:border-[#6d28d9] dark:group-hover:bg-[#202124] dark:group-hover:shadow-black/30">
                 {/* title bar */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-[#2d2f31] border-b border-[#3e4143]">
                   <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
@@ -205,7 +216,7 @@ const HeroSection = () => {
                       {[2, 5, 8, 12, 16, 23, 38, 45, 56, 72].map((v, i) => (
                         <div key={i} className="flex-1 flex flex-col items-center gap-1">
                           <div
-                            className="w-full rounded-sm transition-all"
+                            className="w-full rounded-sm transition-colors duration-200"
                             style={{
                               height: `${(v / 72) * 52}px`,
                               background:
@@ -237,7 +248,7 @@ const HeroSection = () => {
               </div>
 
               {/* ── floating badge top-right ── */}
-              <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-white dark:bg-[#2d2f31] border border-[#d1d7dc] dark:border-[#3e4143] rounded-full pl-2.5 pr-4 py-2 shadow-xl text-[13px] font-semibold text-[#1c1d1f] dark:text-[#f7f9fa]">
+              <div className="absolute -top-4 -right-4 flex items-center gap-2 bg-white dark:bg-[#2d2f31] border border-[#d1d7dc] dark:border-[#3e4143] rounded-full pl-2.5 pr-4 py-2 shadow-xl text-[13px] font-semibold text-[#1c1d1f] dark:text-[#f7f9fa] transition-all duration-300 ease-in-out group-hover:border-[#c084fc] group-hover:bg-[#faf5ff] group-hover:shadow-purple-200/50 dark:group-hover:bg-[#332447] dark:group-hover:border-[#6d28d9] dark:group-hover:shadow-black/30">
                 <span className="w-7 h-7 rounded-full bg-[#a435f0] flex items-center justify-center text-white text-[11px] font-bold">
                   O
                 </span>
@@ -245,7 +256,7 @@ const HeroSection = () => {
               </div>
 
               {/* ── floating badge bottom-left ── */}
-              <div className="absolute -bottom-4 -left-4 flex items-center gap-2 bg-white dark:bg-[#2d2f31] border border-[#d1d7dc] dark:border-[#3e4143] rounded-full pl-2.5 pr-4 py-2 shadow-xl text-[13px] font-semibold text-[#1c1d1f] dark:text-[#f7f9fa]">
+              <div className="absolute -bottom-4 -left-4 flex items-center gap-2 bg-white dark:bg-[#2d2f31] border border-[#d1d7dc] dark:border-[#3e4143] rounded-full pl-2.5 pr-4 py-2 shadow-xl text-[13px] font-semibold text-[#1c1d1f] dark:text-[#f7f9fa] transition-all duration-300 ease-in-out group-hover:border-[#86efac] group-hover:bg-[#f0fdf4] group-hover:shadow-emerald-200/50 dark:group-hover:bg-[#193426] dark:group-hover:border-[#22c55e] dark:group-hover:shadow-black/30">
                 <span className="w-7 h-7 rounded-full bg-[#28c840] flex items-center justify-center text-white text-[11px] font-bold">
                   ✓
                 </span>
@@ -258,6 +269,21 @@ const HeroSection = () => {
           </div>
         </div>
       </section>
+      <style jsx>{`
+        @keyframes pillShine {
+          0% { transform: translateX(-120%); }
+          100% { transform: translateX(120%); }
+        }
+
+        .topic-chip:hover {
+          background-color: var(--chip-bg-hover);
+          color: var(--chip-text-hover);
+        }
+
+        .topic-chip:hover > span:last-child {
+          opacity: 0.28;
+        }
+      `}</style>
     </main>
   );
 };
